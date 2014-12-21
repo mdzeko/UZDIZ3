@@ -20,8 +20,10 @@ public class Controller {
         this.model = model;
         this.view = view;
         s = new Scanner(System.in);
-        if(model.parseData(args))
+        if(model.parseData(args)){
+            model.buildHierarchy();
             displayInterface();
+        }
     }
     
     private void displayInterface(){
@@ -32,12 +34,16 @@ public class Controller {
             if(input.matches("[0-9]"))
             switch(Integer.parseInt(input)){
                 case 1:
+                    model.printNumberOfElements();
                     break;
                 case 2:
+                    model.printFileStructure();
                     break;
                 case 3:
+                    model.startThread();
                     break;
                 case 4:
+                    model.stopThread();
                     break;
                 case 5:
                     break;

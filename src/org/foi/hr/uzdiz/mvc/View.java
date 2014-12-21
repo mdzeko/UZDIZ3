@@ -5,6 +5,11 @@
  */
 package org.foi.hr.uzdiz.mvc;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.foi.hr.uzdiz.help.Constants;
 
 /**
@@ -14,7 +19,17 @@ import org.foi.hr.uzdiz.help.Constants;
 public class View {
     String arrow = Constants.RIGHT_ARROW;
     public void updateOutput(String s){
-        System.out.println(s);
+        if(!Constants.WRITE_OUTPUT_FILE)
+            System.out.println(s);
+        else if(Constants.OUTPUT_FILE != null){
+            try {
+                PrintWriter writer = new PrintWriter(Constants.OUTPUT_FILE, "UTF-8");
+                writer.println(s);
+                writer.close();
+            } catch (UnsupportedEncodingException | FileNotFoundException ex) {
+                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     public void printMenu(){
